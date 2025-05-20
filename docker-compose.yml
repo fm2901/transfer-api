@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+      - "9000:9000"
+    depends_on:
+      - clickhouse
+    networks:
+      - appnet
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    ports:
+      - "8123:8123"
+    volumes:
+      - ./clickhouse/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./var/log/clickhouse-server:/var/log/clickhouse-server
+    networks:
+      - appnet
+
+networks:
+  appnet:
