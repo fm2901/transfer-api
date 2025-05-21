@@ -1,22 +1,11 @@
 import swaggerJsdoc from "swagger-jsdoc";
 
 export const clickhouseConfig = {
-    host: 'http://127.0.0.1:8123',
+    host: 'http://clickhouse:8123',
     username: 'default',
     password: '',
     isUseGzip: false,
-    format: 'json',
-    config: {
-        session_timeout: 60,
-        output_format_json_quote_64bit_integers: 0,
-        enable_http_compression: 0,
-    },
-};
-
-export const API_KEYS = {
-    'key1': ['192.168.1.10'],
-    'key2': ['10.0.0.0/8'],           // поддержка диапазонов
-    'adminKey': ['0.0.0.0/0', '1'],        // любой IP (не рекомендуется)
+    format: 'json'
 };
 
 export const CRON_TIME = '0 3 * * *';

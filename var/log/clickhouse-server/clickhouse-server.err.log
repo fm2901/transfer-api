@@ -1639,3 +1639,328 @@ WHERE SELECT allowed_ips FROM api_keys WHERE key = 'admin' LIMIT 1. Expected one
 20. ? @ 0x00007f2c53270ac3
 21. ? @ 0x00007f2c53302850
  (version 25.4.4.25 (official build))
+2025.05.20 10:37:59.051821 [ 85 ] {00f1b747-70ed-4679-972d-4ce06db05a10} <Error> executeQuery: Code: 410. DB::Exception: clickhouse-jdbc-bridge is not running. Please, start it manually. (EXTERNAL_SERVER_IS_NOT_RESPONDING) (version 25.4.4.25 (official build)) (from 192.168.80.1:39492) (in query: select concat('jdbc(''', name, ''')') as TABLE_CAT from jdbc('', 'SHOW DATASOURCES') order by name), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000f2c34db
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000009c76bec
+2. DB::Exception::Exception<String>(int, FormatStringHelperImpl<std::type_identity<String>::type>, String&&) @ 0x0000000009c7690b
+3. DB::IBridgeHelper::startBridgeCommand() @ 0x0000000014821679
+4. DB::IBridgeHelper::startBridgeSync() @ 0x000000001481d1e5
+5. DB::(anonymous namespace)::ITableFunctionXDBC::startBridgeIfNot(std::shared_ptr<DB::Context const>) const @ 0x00000000110d357e
+6. DB::(anonymous namespace)::ITableFunctionXDBC::executeImpl(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool) const (.bb2af0067840cbf5e78cb72ab24c4ebc) @ 0x00000000110d2c3f
+7. DB::ITableFunction::execute(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool, bool) const @ 0x0000000011b0f4ed
+8. DB::Context::executeTableFunction(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::ITableFunction> const&) @ 0x0000000012fdac7f
+9. DB::QueryAnalyzer::resolveTableFunction(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&, bool) @ 0x00000000128e7c51
+10. DB::QueryAnalyzer::resolveQueryJoinTreeNode(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&) @ 0x0000000012912a79
+11. DB::QueryAnalyzer::resolveQuery(std::shared_ptr<DB::IQueryTreeNode> const&, DB::IdentifierResolveScope&) @ 0x00000000128d7daf
+12. DB::QueryAnalyzer::resolve(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::IQueryTreeNode> const&, std::shared_ptr<DB::Context const>) @ 0x00000000128d60cc
+13. DB::QueryAnalysisPass::run(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::Context const>) @ 0x00000000128d5933
+14. DB::QueryTreePassManager::run(std::shared_ptr<DB::IQueryTreeNode>) @ 0x000000001292b296
+15. DB::buildQueryTreeAndRunPasses(std::shared_ptr<DB::IAST> const&, DB::SelectQueryOptions const&, std::shared_ptr<DB::Context const> const&, std::shared_ptr<DB::IStorage> const&) (.llvm.2807073841616358299) @ 0x000000001323fb25
+16. DB::InterpreterSelectQueryAnalyzer::InterpreterSelectQueryAnalyzer(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const> const&, DB::SelectQueryOptions const&, std::vector<String, std::allocator<String>> const&) @ 0x000000001323dabc
+17. std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> std::__function::__policy_invoker<std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>::__call_impl[abi:ne190107]<std::__function::__default_alloc_func<DB::registerInterpreterSelectQueryAnalyzer(DB::InterpreterFactory&)::$_0, std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>>(std::__function::__policy_storage const*, DB::InterpreterFactory::Arguments const&) (.llvm.2807073841616358299) @ 0x0000000013241402
+18. DB::InterpreterFactory::get(std::shared_ptr<DB::IAST>&, std::shared_ptr<DB::Context>, DB::SelectQueryOptions const&) @ 0x00000000131ea9eb
+19. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*, std::shared_ptr<DB::IAST>&) @ 0x000000001359aa74
+20. DB::executeQuery(DB::ReadBuffer&, DB::WriteBuffer&, bool, std::shared_ptr<DB::Context>, std::function<void (DB::QueryResultDetails const&)>, DB::QueryFlags, std::optional<DB::FormatSettings> const&, std::function<void (DB::IOutputFormat&, String const&, std::shared_ptr<DB::Context const> const&, std::optional<DB::FormatSettings> const&)>) @ 0x000000001359f4a5
+21. DB::HTTPHandler::processQuery(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&, DB::HTTPHandler::Output&, std::optional<DB::CurrentThread::QueryScope>&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x0000000014866481
+22. DB::HTTPHandler::handleRequest(DB::HTTPServerRequest&, DB::HTTPServerResponse&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486a9e9
+23. DB::HTTPServerConnection::run() @ 0x0000000014920baa
+24. Poco::Net::TCPServerConnection::start() @ 0x000000001801bdc7
+25. Poco::Net::TCPServerDispatcher::run() @ 0x000000001801c219
+26. Poco::PooledThread::run() @ 0x0000000017fe753b
+27. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000017fe5a1d
+28. ? @ 0x00007f2c53270ac3
+29. ? @ 0x00007f2c53302850
+
+2025.05.20 10:37:59.055620 [ 85 ] {00f1b747-70ed-4679-972d-4ce06db05a10} <Error> DynamicQueryHandler: Code: 410. DB::Exception: clickhouse-jdbc-bridge is not running. Please, start it manually. (EXTERNAL_SERVER_IS_NOT_RESPONDING), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000f2c34db
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000009c76bec
+2. DB::Exception::Exception<String>(int, FormatStringHelperImpl<std::type_identity<String>::type>, String&&) @ 0x0000000009c7690b
+3. DB::IBridgeHelper::startBridgeCommand() @ 0x0000000014821679
+4. DB::IBridgeHelper::startBridgeSync() @ 0x000000001481d1e5
+5. DB::(anonymous namespace)::ITableFunctionXDBC::startBridgeIfNot(std::shared_ptr<DB::Context const>) const @ 0x00000000110d357e
+6. DB::(anonymous namespace)::ITableFunctionXDBC::executeImpl(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool) const (.bb2af0067840cbf5e78cb72ab24c4ebc) @ 0x00000000110d2c3f
+7. DB::ITableFunction::execute(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool, bool) const @ 0x0000000011b0f4ed
+8. DB::Context::executeTableFunction(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::ITableFunction> const&) @ 0x0000000012fdac7f
+9. DB::QueryAnalyzer::resolveTableFunction(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&, bool) @ 0x00000000128e7c51
+10. DB::QueryAnalyzer::resolveQueryJoinTreeNode(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&) @ 0x0000000012912a79
+11. DB::QueryAnalyzer::resolveQuery(std::shared_ptr<DB::IQueryTreeNode> const&, DB::IdentifierResolveScope&) @ 0x00000000128d7daf
+12. DB::QueryAnalyzer::resolve(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::IQueryTreeNode> const&, std::shared_ptr<DB::Context const>) @ 0x00000000128d60cc
+13. DB::QueryAnalysisPass::run(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::Context const>) @ 0x00000000128d5933
+14. DB::QueryTreePassManager::run(std::shared_ptr<DB::IQueryTreeNode>) @ 0x000000001292b296
+15. DB::buildQueryTreeAndRunPasses(std::shared_ptr<DB::IAST> const&, DB::SelectQueryOptions const&, std::shared_ptr<DB::Context const> const&, std::shared_ptr<DB::IStorage> const&) (.llvm.2807073841616358299) @ 0x000000001323fb25
+16. DB::InterpreterSelectQueryAnalyzer::InterpreterSelectQueryAnalyzer(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const> const&, DB::SelectQueryOptions const&, std::vector<String, std::allocator<String>> const&) @ 0x000000001323dabc
+17. std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> std::__function::__policy_invoker<std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>::__call_impl[abi:ne190107]<std::__function::__default_alloc_func<DB::registerInterpreterSelectQueryAnalyzer(DB::InterpreterFactory&)::$_0, std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>>(std::__function::__policy_storage const*, DB::InterpreterFactory::Arguments const&) (.llvm.2807073841616358299) @ 0x0000000013241402
+18. DB::InterpreterFactory::get(std::shared_ptr<DB::IAST>&, std::shared_ptr<DB::Context>, DB::SelectQueryOptions const&) @ 0x00000000131ea9eb
+19. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*, std::shared_ptr<DB::IAST>&) @ 0x000000001359aa74
+20. DB::executeQuery(DB::ReadBuffer&, DB::WriteBuffer&, bool, std::shared_ptr<DB::Context>, std::function<void (DB::QueryResultDetails const&)>, DB::QueryFlags, std::optional<DB::FormatSettings> const&, std::function<void (DB::IOutputFormat&, String const&, std::shared_ptr<DB::Context const> const&, std::optional<DB::FormatSettings> const&)>) @ 0x000000001359f4a5
+21. DB::HTTPHandler::processQuery(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&, DB::HTTPHandler::Output&, std::optional<DB::CurrentThread::QueryScope>&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x0000000014866481
+22. DB::HTTPHandler::handleRequest(DB::HTTPServerRequest&, DB::HTTPServerResponse&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486a9e9
+23. DB::HTTPServerConnection::run() @ 0x0000000014920baa
+24. Poco::Net::TCPServerConnection::start() @ 0x000000001801bdc7
+25. Poco::Net::TCPServerDispatcher::run() @ 0x000000001801c219
+26. Poco::PooledThread::run() @ 0x0000000017fe753b
+27. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000017fe5a1d
+28. ? @ 0x00007f2c53270ac3
+29. ? @ 0x00007f2c53302850
+ (version 25.4.4.25 (official build))
+2025.05.20 10:38:33.106593 [ 85 ] {61de01f5-c432-4cb4-8f6b-9db230683392} <Error> executeQuery: Code: 410. DB::Exception: clickhouse-jdbc-bridge is not running. Please, start it manually. (EXTERNAL_SERVER_IS_NOT_RESPONDING) (version 25.4.4.25 (official build)) (from 192.168.80.1:53930) (in query: select concat('jdbc(''', name, ''')') as TABLE_CAT from jdbc('', 'SHOW DATASOURCES') order by name), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000f2c34db
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000009c76bec
+2. DB::Exception::Exception<String>(int, FormatStringHelperImpl<std::type_identity<String>::type>, String&&) @ 0x0000000009c7690b
+3. DB::IBridgeHelper::startBridgeCommand() @ 0x0000000014821679
+4. DB::IBridgeHelper::startBridgeSync() @ 0x000000001481d1e5
+5. DB::(anonymous namespace)::ITableFunctionXDBC::startBridgeIfNot(std::shared_ptr<DB::Context const>) const @ 0x00000000110d357e
+6. DB::(anonymous namespace)::ITableFunctionXDBC::executeImpl(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool) const (.bb2af0067840cbf5e78cb72ab24c4ebc) @ 0x00000000110d2c3f
+7. DB::ITableFunction::execute(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool, bool) const @ 0x0000000011b0f4ed
+8. DB::Context::executeTableFunction(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::ITableFunction> const&) @ 0x0000000012fdac7f
+9. DB::QueryAnalyzer::resolveTableFunction(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&, bool) @ 0x00000000128e7c51
+10. DB::QueryAnalyzer::resolveQueryJoinTreeNode(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&) @ 0x0000000012912a79
+11. DB::QueryAnalyzer::resolveQuery(std::shared_ptr<DB::IQueryTreeNode> const&, DB::IdentifierResolveScope&) @ 0x00000000128d7daf
+12. DB::QueryAnalyzer::resolve(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::IQueryTreeNode> const&, std::shared_ptr<DB::Context const>) @ 0x00000000128d60cc
+13. DB::QueryAnalysisPass::run(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::Context const>) @ 0x00000000128d5933
+14. DB::QueryTreePassManager::run(std::shared_ptr<DB::IQueryTreeNode>) @ 0x000000001292b296
+15. DB::buildQueryTreeAndRunPasses(std::shared_ptr<DB::IAST> const&, DB::SelectQueryOptions const&, std::shared_ptr<DB::Context const> const&, std::shared_ptr<DB::IStorage> const&) (.llvm.2807073841616358299) @ 0x000000001323fb25
+16. DB::InterpreterSelectQueryAnalyzer::InterpreterSelectQueryAnalyzer(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const> const&, DB::SelectQueryOptions const&, std::vector<String, std::allocator<String>> const&) @ 0x000000001323dabc
+17. std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> std::__function::__policy_invoker<std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>::__call_impl[abi:ne190107]<std::__function::__default_alloc_func<DB::registerInterpreterSelectQueryAnalyzer(DB::InterpreterFactory&)::$_0, std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>>(std::__function::__policy_storage const*, DB::InterpreterFactory::Arguments const&) (.llvm.2807073841616358299) @ 0x0000000013241402
+18. DB::InterpreterFactory::get(std::shared_ptr<DB::IAST>&, std::shared_ptr<DB::Context>, DB::SelectQueryOptions const&) @ 0x00000000131ea9eb
+19. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*, std::shared_ptr<DB::IAST>&) @ 0x000000001359aa74
+20. DB::executeQuery(DB::ReadBuffer&, DB::WriteBuffer&, bool, std::shared_ptr<DB::Context>, std::function<void (DB::QueryResultDetails const&)>, DB::QueryFlags, std::optional<DB::FormatSettings> const&, std::function<void (DB::IOutputFormat&, String const&, std::shared_ptr<DB::Context const> const&, std::optional<DB::FormatSettings> const&)>) @ 0x000000001359f4a5
+21. DB::HTTPHandler::processQuery(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&, DB::HTTPHandler::Output&, std::optional<DB::CurrentThread::QueryScope>&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x0000000014866481
+22. DB::HTTPHandler::handleRequest(DB::HTTPServerRequest&, DB::HTTPServerResponse&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486a9e9
+23. DB::HTTPServerConnection::run() @ 0x0000000014920baa
+24. Poco::Net::TCPServerConnection::start() @ 0x000000001801bdc7
+25. Poco::Net::TCPServerDispatcher::run() @ 0x000000001801c219
+26. Poco::PooledThread::run() @ 0x0000000017fe753b
+27. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000017fe5a1d
+28. ? @ 0x00007f2c53270ac3
+29. ? @ 0x00007f2c53302850
+
+2025.05.20 10:38:33.110164 [ 85 ] {61de01f5-c432-4cb4-8f6b-9db230683392} <Error> DynamicQueryHandler: Code: 410. DB::Exception: clickhouse-jdbc-bridge is not running. Please, start it manually. (EXTERNAL_SERVER_IS_NOT_RESPONDING), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000f2c34db
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000009c76bec
+2. DB::Exception::Exception<String>(int, FormatStringHelperImpl<std::type_identity<String>::type>, String&&) @ 0x0000000009c7690b
+3. DB::IBridgeHelper::startBridgeCommand() @ 0x0000000014821679
+4. DB::IBridgeHelper::startBridgeSync() @ 0x000000001481d1e5
+5. DB::(anonymous namespace)::ITableFunctionXDBC::startBridgeIfNot(std::shared_ptr<DB::Context const>) const @ 0x00000000110d357e
+6. DB::(anonymous namespace)::ITableFunctionXDBC::executeImpl(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool) const (.bb2af0067840cbf5e78cb72ab24c4ebc) @ 0x00000000110d2c3f
+7. DB::ITableFunction::execute(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool, bool) const @ 0x0000000011b0f4ed
+8. DB::Context::executeTableFunction(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::ITableFunction> const&) @ 0x0000000012fdac7f
+9. DB::QueryAnalyzer::resolveTableFunction(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&, bool) @ 0x00000000128e7c51
+10. DB::QueryAnalyzer::resolveQueryJoinTreeNode(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&) @ 0x0000000012912a79
+11. DB::QueryAnalyzer::resolveQuery(std::shared_ptr<DB::IQueryTreeNode> const&, DB::IdentifierResolveScope&) @ 0x00000000128d7daf
+12. DB::QueryAnalyzer::resolve(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::IQueryTreeNode> const&, std::shared_ptr<DB::Context const>) @ 0x00000000128d60cc
+13. DB::QueryAnalysisPass::run(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::Context const>) @ 0x00000000128d5933
+14. DB::QueryTreePassManager::run(std::shared_ptr<DB::IQueryTreeNode>) @ 0x000000001292b296
+15. DB::buildQueryTreeAndRunPasses(std::shared_ptr<DB::IAST> const&, DB::SelectQueryOptions const&, std::shared_ptr<DB::Context const> const&, std::shared_ptr<DB::IStorage> const&) (.llvm.2807073841616358299) @ 0x000000001323fb25
+16. DB::InterpreterSelectQueryAnalyzer::InterpreterSelectQueryAnalyzer(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const> const&, DB::SelectQueryOptions const&, std::vector<String, std::allocator<String>> const&) @ 0x000000001323dabc
+17. std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> std::__function::__policy_invoker<std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>::__call_impl[abi:ne190107]<std::__function::__default_alloc_func<DB::registerInterpreterSelectQueryAnalyzer(DB::InterpreterFactory&)::$_0, std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>>(std::__function::__policy_storage const*, DB::InterpreterFactory::Arguments const&) (.llvm.2807073841616358299) @ 0x0000000013241402
+18. DB::InterpreterFactory::get(std::shared_ptr<DB::IAST>&, std::shared_ptr<DB::Context>, DB::SelectQueryOptions const&) @ 0x00000000131ea9eb
+19. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*, std::shared_ptr<DB::IAST>&) @ 0x000000001359aa74
+20. DB::executeQuery(DB::ReadBuffer&, DB::WriteBuffer&, bool, std::shared_ptr<DB::Context>, std::function<void (DB::QueryResultDetails const&)>, DB::QueryFlags, std::optional<DB::FormatSettings> const&, std::function<void (DB::IOutputFormat&, String const&, std::shared_ptr<DB::Context const> const&, std::optional<DB::FormatSettings> const&)>) @ 0x000000001359f4a5
+21. DB::HTTPHandler::processQuery(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&, DB::HTTPHandler::Output&, std::optional<DB::CurrentThread::QueryScope>&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x0000000014866481
+22. DB::HTTPHandler::handleRequest(DB::HTTPServerRequest&, DB::HTTPServerResponse&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486a9e9
+23. DB::HTTPServerConnection::run() @ 0x0000000014920baa
+24. Poco::Net::TCPServerConnection::start() @ 0x000000001801bdc7
+25. Poco::Net::TCPServerDispatcher::run() @ 0x000000001801c219
+26. Poco::PooledThread::run() @ 0x0000000017fe753b
+27. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000017fe5a1d
+28. ? @ 0x00007f2c53270ac3
+29. ? @ 0x00007f2c53302850
+ (version 25.4.4.25 (official build))
+2025.05.20 11:33:58.092640 [ 1 ] {} <Warning> Application: Listen [::]:9009 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:33:58.143890 [ 1 ] {} <Warning> Context: Linux transparent hugepages are set to "always". Check /sys/kernel/mm/transparent_hugepage/enabled
+2025.05.20 11:33:58.145527 [ 1 ] {} <Warning> Context: Delay accounting is not enabled, OSIOWaitMicroseconds will not be gathered. You can enable it using `echo 1 > /proc/sys/kernel/task_delayacct` or by using sysctl.
+2025.05.20 11:33:59.691559 [ 1 ] {} <Warning> Application: Listen [::]:8123 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:33:59.706853 [ 1 ] {} <Warning> Application: Listen [::]:9000 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:33:59.758750 [ 1 ] {} <Warning> Application: Listen [::]:9004 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:33:59.858253 [ 1 ] {} <Warning> Application: Listen [::]:9005 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:35:02.732117 [ 1 ] {} <Warning> Application: Listen [::]:9009 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:35:02.748136 [ 1 ] {} <Warning> Context: Linux transparent hugepages are set to "always". Check /sys/kernel/mm/transparent_hugepage/enabled
+2025.05.20 11:35:02.748907 [ 1 ] {} <Warning> Context: Delay accounting is not enabled, OSIOWaitMicroseconds will not be gathered. You can enable it using `echo 1 > /proc/sys/kernel/task_delayacct` or by using sysctl.
+2025.05.20 11:35:03.902402 [ 1 ] {} <Warning> Application: Listen [::]:8123 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:35:03.903242 [ 1 ] {} <Warning> Application: Listen [::]:9000 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:35:03.903879 [ 1 ] {} <Warning> Application: Listen [::]:9004 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:35:03.904665 [ 1 ] {} <Warning> Application: Listen [::]:9005 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:36:33.693845 [ 666 ] {a8e1ca6d-00d2-4217-b23f-ee70beea905c::202505_1825_2842_595} <Error> virtual bool DB::MergePlainMergeTreeTask::executeStep(): Exception is in merge_task.: Code: 236. DB::Exception: Cancelled merging parts. (ABORTED), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000f2c34db
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000009c76bec
+2. DB::Exception::Exception<>(int, FormatStringHelperImpl<>) @ 0x0000000009c833ab
+3. DB::MergeTask::GlobalRuntimeContext::checkOperationIsNotCanceled() const @ 0x00000000141bf137
+4. DB::MergeTask::ExecuteAndFinalizeHorizontalPart::executeImpl() const @ 0x00000000141d3f81
+5. DB::MergeTask::ExecuteAndFinalizeHorizontalPart::execute() @ 0x00000000141d1f6e
+6. DB::MergeTask::execute() @ 0x00000000141db282
+7. DB::MergePlainMergeTreeTask::executeStep() @ 0x0000000014617768
+8. DB::MergeTreeBackgroundExecutor<DB::DynamicRuntimeQueue>::threadFunction() @ 0x00000000141fefcd
+9. ThreadPoolImpl<ThreadFromGlobalPoolImpl<false, true>>::ThreadFromThreadPool::worker() @ 0x000000000f3fc99b
+10. void std::__function::__policy_invoker<void ()>::__call_impl[abi:ne190107]<std::__function::__default_alloc_func<ThreadFromGlobalPoolImpl<false, true>::ThreadFromGlobalPoolImpl<void (ThreadPoolImpl<ThreadFromGlobalPoolImpl<false, true>>::ThreadFromThreadPool::*)(), ThreadPoolImpl<ThreadFromGlobalPoolImpl<false, true>>::ThreadFromThreadPool*>(void (ThreadPoolImpl<ThreadFromGlobalPoolImpl<false, true>>::ThreadFromThreadPool::*&&)(), ThreadPoolImpl<ThreadFromGlobalPoolImpl<false, true>>::ThreadFromThreadPool*&&)::'lambda'(), void ()>>(std::__function::__policy_storage const*) @ 0x000000000f4034c3
+11. ThreadPoolImpl<std::thread>::ThreadFromThreadPool::worker() @ 0x000000000f3f9ccf
+12. void* std::__thread_proxy[abi:ne190107]<std::tuple<std::unique_ptr<std::__thread_struct, std::default_delete<std::__thread_struct>>, void (ThreadPoolImpl<std::thread>::ThreadFromThreadPool::*)(), ThreadPoolImpl<std::thread>::ThreadFromThreadPool*>>(void*) @ 0x000000000f400f9a
+13. ? @ 0x00007f0b7f071ac3
+14. ? @ 0x00007f0b7f103850
+ (version 25.4.4.25 (official build))
+2025.05.20 11:36:56.069437 [ 83 ] {} <Warning> Application: Listen [0.0.0.0]:9009 failed: Poco::Exception. Code: 1000, e.code() = 98, Net Exception: Address already in use: 0.0.0.0:9009 (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:36:56.075951 [ 83 ] {} <Warning> Access(local_directory): File /var/lib/clickhouse/access/users.list doesn't exist
+2025.05.20 11:36:56.076316 [ 83 ] {} <Warning> Access(local_directory): Recovering lists in directory /var/lib/clickhouse/access/
+2025.05.20 11:36:56.083758 [ 83 ] {} <Warning> Context: Linux transparent hugepages are set to "always". Check /sys/kernel/mm/transparent_hugepage/enabled
+2025.05.20 11:36:56.084462 [ 83 ] {} <Warning> Context: Delay accounting is not enabled, OSIOWaitMicroseconds will not be gathered. You can enable it using `echo 1 > /proc/sys/kernel/task_delayacct` or by using sysctl.
+2025.05.20 11:36:56.153586 [ 83 ] {} <Warning> Application: Listen [0.0.0.0]:8123 failed: Poco::Exception. Code: 1000, e.code() = 98, Net Exception: Address already in use: 0.0.0.0:8123 (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:36:56.154488 [ 83 ] {} <Warning> Application: Listen [0.0.0.0]:9000 failed: Poco::Exception. Code: 1000, e.code() = 98, Net Exception: Address already in use: 0.0.0.0:9000 (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:36:56.155091 [ 83 ] {} <Warning> Application: Listen [0.0.0.0]:9004 failed: Poco::Exception. Code: 1000, e.code() = 98, Net Exception: Address already in use: 0.0.0.0:9004 (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:36:56.155771 [ 83 ] {} <Warning> Application: Listen [0.0.0.0]:9005 failed: Poco::Exception. Code: 1000, e.code() = 98, Net Exception: Address already in use: 0.0.0.0:9005 (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:36:59.477463 [ 1 ] {} <Warning> Application: Listen [::]:9009 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:36:59.494277 [ 1 ] {} <Warning> Context: Linux transparent hugepages are set to "always". Check /sys/kernel/mm/transparent_hugepage/enabled
+2025.05.20 11:36:59.495469 [ 1 ] {} <Warning> Context: Delay accounting is not enabled, OSIOWaitMicroseconds will not be gathered. You can enable it using `echo 1 > /proc/sys/kernel/task_delayacct` or by using sysctl.
+2025.05.20 11:36:59.622391 [ 1 ] {} <Warning> Application: Listen [::]:8123 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:36:59.622916 [ 1 ] {} <Warning> Application: Listen [::]:9000 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:36:59.623415 [ 1 ] {} <Warning> Application: Listen [::]:9004 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:36:59.624209 [ 1 ] {} <Warning> Application: Listen [::]:9005 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:40:19.233128 [ 81 ] {} <Warning> Application: Listen [0.0.0.0]:9009 failed: Poco::Exception. Code: 1000, e.code() = 98, Net Exception: Address already in use: 0.0.0.0:9009 (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:40:19.240199 [ 81 ] {} <Warning> Access(local_directory): File /var/lib/clickhouse/access/users.list doesn't exist
+2025.05.20 11:40:19.240666 [ 81 ] {} <Warning> Access(local_directory): Recovering lists in directory /var/lib/clickhouse/access/
+2025.05.20 11:40:19.252349 [ 81 ] {} <Warning> Context: Linux transparent hugepages are set to "always". Check /sys/kernel/mm/transparent_hugepage/enabled
+2025.05.20 11:40:19.253351 [ 81 ] {} <Warning> Context: Delay accounting is not enabled, OSIOWaitMicroseconds will not be gathered. You can enable it using `echo 1 > /proc/sys/kernel/task_delayacct` or by using sysctl.
+2025.05.20 11:40:19.334523 [ 81 ] {} <Warning> Application: Listen [0.0.0.0]:8123 failed: Poco::Exception. Code: 1000, e.code() = 98, Net Exception: Address already in use: 0.0.0.0:8123 (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:40:19.335248 [ 81 ] {} <Warning> Application: Listen [0.0.0.0]:9000 failed: Poco::Exception. Code: 1000, e.code() = 98, Net Exception: Address already in use: 0.0.0.0:9000 (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:40:19.335762 [ 81 ] {} <Warning> Application: Listen [0.0.0.0]:9004 failed: Poco::Exception. Code: 1000, e.code() = 98, Net Exception: Address already in use: 0.0.0.0:9004 (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:40:19.336275 [ 81 ] {} <Warning> Application: Listen [0.0.0.0]:9005 failed: Poco::Exception. Code: 1000, e.code() = 98, Net Exception: Address already in use: 0.0.0.0:9005 (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:40:22.675233 [ 1 ] {} <Warning> Application: Listen [::]:9009 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:40:22.684106 [ 1 ] {} <Warning> Context: Linux transparent hugepages are set to "always". Check /sys/kernel/mm/transparent_hugepage/enabled
+2025.05.20 11:40:22.684811 [ 1 ] {} <Warning> Context: Delay accounting is not enabled, OSIOWaitMicroseconds will not be gathered. You can enable it using `echo 1 > /proc/sys/kernel/task_delayacct` or by using sysctl.
+2025.05.20 11:40:22.821804 [ 1 ] {} <Warning> Application: Listen [::]:8123 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:40:22.822210 [ 1 ] {} <Warning> Application: Listen [::]:9000 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:40:22.822759 [ 1 ] {} <Warning> Application: Listen [::]:9004 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:40:22.823130 [ 1 ] {} <Warning> Application: Listen [::]:9005 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:40:26.824068 [ 772 ] {} <Error> DynamicQueryHandler: Code: 194. DB::Exception: default: Authentication failed: password is incorrect, or there is no user with such name.
+
+If you use ClickHouse Cloud, the password can be reset at https://clickhouse.cloud/
+on the settings page for the corresponding service.
+
+If you have installed ClickHouse and forgot password you can reset it in the configuration file.
+The password for default user is typically located at /etc/clickhouse-server/users.d/default-password.xml
+and deleting this file will reset the password.
+See also /etc/clickhouse-server/users.xml on the server where ClickHouse is installed.
+
+. (REQUIRED_PASSWORD), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000f2c34db
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000009c76bec
+2. DB::AccessControl::authenticate(DB::Credentials const&, Poco::Net::IPAddress const&, DB::ClientInfo const&) const @ 0x0000000011ef0d43
+3. DB::Session::authenticate(DB::Credentials const&, Poco::Net::SocketAddress const&, std::vector<String, std::allocator<String>> const&) @ 0x00000000132e5b37
+4. DB::authenticateUserByHTTP(DB::HTTPServerRequest const&, DB::HTMLForm const&, DB::HTTPServerResponse&, DB::Session&, std::unique_ptr<DB::Credentials, std::default_delete<DB::Credentials>>&, DB::HTTPHandlerConnectionConfig const&, std::shared_ptr<DB::Context const>, std::shared_ptr<Poco::Logger>) @ 0x000000001492ce5c
+5. DB::HTTPHandler::authenticateUser(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&) @ 0x0000000014861010
+6. DB::HTTPHandler::processQuery(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&, DB::HTTPHandler::Output&, std::optional<DB::CurrentThread::QueryScope>&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486149e
+7. DB::HTTPHandler::handleRequest(DB::HTTPServerRequest&, DB::HTTPServerResponse&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486a9e9
+8. DB::HTTPServerConnection::run() @ 0x0000000014920baa
+9. Poco::Net::TCPServerConnection::start() @ 0x000000001801bdc7
+10. Poco::Net::TCPServerDispatcher::run() @ 0x000000001801c219
+11. Poco::PooledThread::run() @ 0x0000000017fe753b
+12. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000017fe5a1d
+13. ? @ 0x00007fcbae630ac3
+14. ? @ 0x00007fcbae6c2850
+ (version 25.4.4.25 (official build))
+2025.05.20 11:42:11.557072 [ 772 ] {} <Error> DynamicQueryHandler: Code: 194. DB::Exception: default: Authentication failed: password is incorrect, or there is no user with such name.
+
+If you use ClickHouse Cloud, the password can be reset at https://clickhouse.cloud/
+on the settings page for the corresponding service.
+
+If you have installed ClickHouse and forgot password you can reset it in the configuration file.
+The password for default user is typically located at /etc/clickhouse-server/users.d/default-password.xml
+and deleting this file will reset the password.
+See also /etc/clickhouse-server/users.xml on the server where ClickHouse is installed.
+
+. (REQUIRED_PASSWORD), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000f2c34db
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000009c76bec
+2. DB::AccessControl::authenticate(DB::Credentials const&, Poco::Net::IPAddress const&, DB::ClientInfo const&) const @ 0x0000000011ef0d43
+3. DB::Session::authenticate(DB::Credentials const&, Poco::Net::SocketAddress const&, std::vector<String, std::allocator<String>> const&) @ 0x00000000132e5b37
+4. DB::authenticateUserByHTTP(DB::HTTPServerRequest const&, DB::HTMLForm const&, DB::HTTPServerResponse&, DB::Session&, std::unique_ptr<DB::Credentials, std::default_delete<DB::Credentials>>&, DB::HTTPHandlerConnectionConfig const&, std::shared_ptr<DB::Context const>, std::shared_ptr<Poco::Logger>) @ 0x000000001492ce5c
+5. DB::HTTPHandler::authenticateUser(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&) @ 0x0000000014861010
+6. DB::HTTPHandler::processQuery(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&, DB::HTTPHandler::Output&, std::optional<DB::CurrentThread::QueryScope>&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486149e
+7. DB::HTTPHandler::handleRequest(DB::HTTPServerRequest&, DB::HTTPServerResponse&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486a9e9
+8. DB::HTTPServerConnection::run() @ 0x0000000014920baa
+9. Poco::Net::TCPServerConnection::start() @ 0x000000001801bdc7
+10. Poco::Net::TCPServerDispatcher::run() @ 0x000000001801c219
+11. Poco::PooledThread::run() @ 0x0000000017fe753b
+12. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000017fe5a1d
+13. ? @ 0x00007fcbae630ac3
+14. ? @ 0x00007fcbae6c2850
+ (version 25.4.4.25 (official build))
+2025.05.20 11:43:32.016094 [ 1 ] {} <Warning> Application: Listen [::]:9009 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:43:32.026742 [ 1 ] {} <Warning> Context: Linux transparent hugepages are set to "always". Check /sys/kernel/mm/transparent_hugepage/enabled
+2025.05.20 11:43:32.027750 [ 1 ] {} <Warning> Context: Delay accounting is not enabled, OSIOWaitMicroseconds will not be gathered. You can enable it using `echo 1 > /proc/sys/kernel/task_delayacct` or by using sysctl.
+2025.05.20 11:43:32.527483 [ 1 ] {} <Warning> Application: Listen [::]:8123 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:43:32.528154 [ 1 ] {} <Warning> Application: Listen [::]:9000 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:43:32.528610 [ 1 ] {} <Warning> Application: Listen [::]:9004 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:43:32.529741 [ 1 ] {} <Warning> Application: Listen [::]:9005 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.20 11:44:06.657531 [ 76 ] {8e537915-d6e8-4981-b8e8-b89bf68c3c53} <Error> executeQuery: Code: 410. DB::Exception: clickhouse-jdbc-bridge is not running. Please, start it manually. (EXTERNAL_SERVER_IS_NOT_RESPONDING) (version 25.4.4.25 (official build)) (from 192.168.112.1:40300) (in query: select concat('jdbc(''', name, ''')') as TABLE_CAT from jdbc('', 'SHOW DATASOURCES') order by name), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000f2c34db
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000009c76bec
+2. DB::Exception::Exception<String>(int, FormatStringHelperImpl<std::type_identity<String>::type>, String&&) @ 0x0000000009c7690b
+3. DB::IBridgeHelper::startBridgeCommand() @ 0x0000000014821679
+4. DB::IBridgeHelper::startBridgeSync() @ 0x000000001481d1e5
+5. DB::(anonymous namespace)::ITableFunctionXDBC::startBridgeIfNot(std::shared_ptr<DB::Context const>) const @ 0x00000000110d357e
+6. DB::(anonymous namespace)::ITableFunctionXDBC::executeImpl(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool) const (.bb2af0067840cbf5e78cb72ab24c4ebc) @ 0x00000000110d2c3f
+7. DB::ITableFunction::execute(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool, bool) const @ 0x0000000011b0f4ed
+8. DB::Context::executeTableFunction(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::ITableFunction> const&) @ 0x0000000012fdac7f
+9. DB::QueryAnalyzer::resolveTableFunction(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&, bool) @ 0x00000000128e7c51
+10. DB::QueryAnalyzer::resolveQueryJoinTreeNode(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&) @ 0x0000000012912a79
+11. DB::QueryAnalyzer::resolveQuery(std::shared_ptr<DB::IQueryTreeNode> const&, DB::IdentifierResolveScope&) @ 0x00000000128d7daf
+12. DB::QueryAnalyzer::resolve(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::IQueryTreeNode> const&, std::shared_ptr<DB::Context const>) @ 0x00000000128d60cc
+13. DB::QueryAnalysisPass::run(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::Context const>) @ 0x00000000128d5933
+14. DB::QueryTreePassManager::run(std::shared_ptr<DB::IQueryTreeNode>) @ 0x000000001292b296
+15. DB::buildQueryTreeAndRunPasses(std::shared_ptr<DB::IAST> const&, DB::SelectQueryOptions const&, std::shared_ptr<DB::Context const> const&, std::shared_ptr<DB::IStorage> const&) (.llvm.2807073841616358299) @ 0x000000001323fb25
+16. DB::InterpreterSelectQueryAnalyzer::InterpreterSelectQueryAnalyzer(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const> const&, DB::SelectQueryOptions const&, std::vector<String, std::allocator<String>> const&) @ 0x000000001323dabc
+17. std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> std::__function::__policy_invoker<std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>::__call_impl[abi:ne190107]<std::__function::__default_alloc_func<DB::registerInterpreterSelectQueryAnalyzer(DB::InterpreterFactory&)::$_0, std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>>(std::__function::__policy_storage const*, DB::InterpreterFactory::Arguments const&) (.llvm.2807073841616358299) @ 0x0000000013241402
+18. DB::InterpreterFactory::get(std::shared_ptr<DB::IAST>&, std::shared_ptr<DB::Context>, DB::SelectQueryOptions const&) @ 0x00000000131ea9eb
+19. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*, std::shared_ptr<DB::IAST>&) @ 0x000000001359aa74
+20. DB::executeQuery(DB::ReadBuffer&, DB::WriteBuffer&, bool, std::shared_ptr<DB::Context>, std::function<void (DB::QueryResultDetails const&)>, DB::QueryFlags, std::optional<DB::FormatSettings> const&, std::function<void (DB::IOutputFormat&, String const&, std::shared_ptr<DB::Context const> const&, std::optional<DB::FormatSettings> const&)>) @ 0x000000001359f4a5
+21. DB::HTTPHandler::processQuery(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&, DB::HTTPHandler::Output&, std::optional<DB::CurrentThread::QueryScope>&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x0000000014866481
+22. DB::HTTPHandler::handleRequest(DB::HTTPServerRequest&, DB::HTTPServerResponse&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486a9e9
+23. DB::HTTPServerConnection::run() @ 0x0000000014920baa
+24. Poco::Net::TCPServerConnection::start() @ 0x000000001801bdc7
+25. Poco::Net::TCPServerDispatcher::run() @ 0x000000001801c219
+26. Poco::PooledThread::run() @ 0x0000000017fe753b
+27. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000017fe5a1d
+28. ? @ 0x00007f8969b4bac3
+29. ? @ 0x00007f8969bdd850
+
+2025.05.20 11:44:06.661931 [ 76 ] {8e537915-d6e8-4981-b8e8-b89bf68c3c53} <Error> DynamicQueryHandler: Code: 410. DB::Exception: clickhouse-jdbc-bridge is not running. Please, start it manually. (EXTERNAL_SERVER_IS_NOT_RESPONDING), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000f2c34db
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000009c76bec
+2. DB::Exception::Exception<String>(int, FormatStringHelperImpl<std::type_identity<String>::type>, String&&) @ 0x0000000009c7690b
+3. DB::IBridgeHelper::startBridgeCommand() @ 0x0000000014821679
+4. DB::IBridgeHelper::startBridgeSync() @ 0x000000001481d1e5
+5. DB::(anonymous namespace)::ITableFunctionXDBC::startBridgeIfNot(std::shared_ptr<DB::Context const>) const @ 0x00000000110d357e
+6. DB::(anonymous namespace)::ITableFunctionXDBC::executeImpl(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool) const (.bb2af0067840cbf5e78cb72ab24c4ebc) @ 0x00000000110d2c3f
+7. DB::ITableFunction::execute(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool, bool) const @ 0x0000000011b0f4ed
+8. DB::Context::executeTableFunction(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::ITableFunction> const&) @ 0x0000000012fdac7f
+9. DB::QueryAnalyzer::resolveTableFunction(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&, bool) @ 0x00000000128e7c51
+10. DB::QueryAnalyzer::resolveQueryJoinTreeNode(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&) @ 0x0000000012912a79
+11. DB::QueryAnalyzer::resolveQuery(std::shared_ptr<DB::IQueryTreeNode> const&, DB::IdentifierResolveScope&) @ 0x00000000128d7daf
+12. DB::QueryAnalyzer::resolve(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::IQueryTreeNode> const&, std::shared_ptr<DB::Context const>) @ 0x00000000128d60cc
+13. DB::QueryAnalysisPass::run(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::Context const>) @ 0x00000000128d5933
+14. DB::QueryTreePassManager::run(std::shared_ptr<DB::IQueryTreeNode>) @ 0x000000001292b296
+15. DB::buildQueryTreeAndRunPasses(std::shared_ptr<DB::IAST> const&, DB::SelectQueryOptions const&, std::shared_ptr<DB::Context const> const&, std::shared_ptr<DB::IStorage> const&) (.llvm.2807073841616358299) @ 0x000000001323fb25
+16. DB::InterpreterSelectQueryAnalyzer::InterpreterSelectQueryAnalyzer(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const> const&, DB::SelectQueryOptions const&, std::vector<String, std::allocator<String>> const&) @ 0x000000001323dabc
+17. std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> std::__function::__policy_invoker<std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>::__call_impl[abi:ne190107]<std::__function::__default_alloc_func<DB::registerInterpreterSelectQueryAnalyzer(DB::InterpreterFactory&)::$_0, std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>>(std::__function::__policy_storage const*, DB::InterpreterFactory::Arguments const&) (.llvm.2807073841616358299) @ 0x0000000013241402
+18. DB::InterpreterFactory::get(std::shared_ptr<DB::IAST>&, std::shared_ptr<DB::Context>, DB::SelectQueryOptions const&) @ 0x00000000131ea9eb
+19. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*, std::shared_ptr<DB::IAST>&) @ 0x000000001359aa74
+20. DB::executeQuery(DB::ReadBuffer&, DB::WriteBuffer&, bool, std::shared_ptr<DB::Context>, std::function<void (DB::QueryResultDetails const&)>, DB::QueryFlags, std::optional<DB::FormatSettings> const&, std::function<void (DB::IOutputFormat&, String const&, std::shared_ptr<DB::Context const> const&, std::optional<DB::FormatSettings> const&)>) @ 0x000000001359f4a5
+21. DB::HTTPHandler::processQuery(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&, DB::HTTPHandler::Output&, std::optional<DB::CurrentThread::QueryScope>&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x0000000014866481
+22. DB::HTTPHandler::handleRequest(DB::HTTPServerRequest&, DB::HTTPServerResponse&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486a9e9
+23. DB::HTTPServerConnection::run() @ 0x0000000014920baa
+24. Poco::Net::TCPServerConnection::start() @ 0x000000001801bdc7
+25. Poco::Net::TCPServerDispatcher::run() @ 0x000000001801c219
+26. Poco::PooledThread::run() @ 0x0000000017fe753b
+27. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000017fe5a1d
+28. ? @ 0x00007f8969b4bac3
+29. ? @ 0x00007f8969bdd850
+ (version 25.4.4.25 (official build))

@@ -1,10 +1,7 @@
 import { createClient } from '@clickhouse/client';
+import {clickhouseConfig} from "../config.js";
 
-const clickhouse = createClient({
-    host: 'http://localhost:8123',
-    username: 'default',
-    password: '',
-});
+const clickhouse = createClient(clickhouseConfig);
 
 // ✅ Вставка данных
 export async function insertTransfers(data) {
