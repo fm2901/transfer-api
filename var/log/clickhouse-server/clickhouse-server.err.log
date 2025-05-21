@@ -1964,3 +1964,126 @@ See also /etc/clickhouse-server/users.xml on the server where ClickHouse is inst
 28. ? @ 0x00007f8969b4bac3
 29. ? @ 0x00007f8969bdd850
  (version 25.4.4.25 (official build))
+2025.05.21 05:06:56.029967 [ 1 ] {} <Warning> Application: Listen [::]:9009 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.21 05:06:56.075590 [ 1 ] {} <Warning> Context: Linux transparent hugepages are set to "always". Check /sys/kernel/mm/transparent_hugepage/enabled
+2025.05.21 05:06:56.076573 [ 1 ] {} <Warning> Context: Delay accounting is not enabled, OSIOWaitMicroseconds will not be gathered. You can enable it using `echo 1 > /proc/sys/kernel/task_delayacct` or by using sysctl.
+2025.05.21 05:06:56.776834 [ 1 ] {} <Warning> Application: Listen [::]:8123 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.21 05:06:56.777178 [ 1 ] {} <Warning> Application: Listen [::]:9000 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.21 05:06:56.777434 [ 1 ] {} <Warning> Application: Listen [::]:9004 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.21 05:06:56.777771 [ 1 ] {} <Warning> Application: Listen [::]:9005 failed: Poco::Exception. Code: 1000, e.code() = 0, DNS error: EAI: Address family for hostname not supported (version 25.4.4.25 (official build)). If it is an IPv6 or IPv4 address and your host has disabled IPv6 or IPv4, then consider to specify not disabled IPv4 or IPv6 address to listen in <listen_host> element of configuration file. Example for disabled IPv6: <listen_host>0.0.0.0</listen_host> . Example for disabled IPv4: <listen_host>::</listen_host>
+2025.05.21 05:09:53.627834 [ 81 ] {905cb505-24d9-4683-9919-b1e900c5a02a} <Error> executeQuery: Code: 410. DB::Exception: clickhouse-jdbc-bridge is not running. Please, start it manually. (EXTERNAL_SERVER_IS_NOT_RESPONDING) (version 25.4.4.25 (official build)) (from 192.168.112.1:58274) (in query: select concat('jdbc(''', name, ''')') as TABLE_CAT from jdbc('', 'SHOW DATASOURCES') order by name), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000f2c34db
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000009c76bec
+2. DB::Exception::Exception<String>(int, FormatStringHelperImpl<std::type_identity<String>::type>, String&&) @ 0x0000000009c7690b
+3. DB::IBridgeHelper::startBridgeCommand() @ 0x0000000014821679
+4. DB::IBridgeHelper::startBridgeSync() @ 0x000000001481d1e5
+5. DB::(anonymous namespace)::ITableFunctionXDBC::startBridgeIfNot(std::shared_ptr<DB::Context const>) const @ 0x00000000110d357e
+6. DB::(anonymous namespace)::ITableFunctionXDBC::executeImpl(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool) const (.bb2af0067840cbf5e78cb72ab24c4ebc) @ 0x00000000110d2c3f
+7. DB::ITableFunction::execute(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool, bool) const @ 0x0000000011b0f4ed
+8. DB::Context::executeTableFunction(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::ITableFunction> const&) @ 0x0000000012fdac7f
+9. DB::QueryAnalyzer::resolveTableFunction(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&, bool) @ 0x00000000128e7c51
+10. DB::QueryAnalyzer::resolveQueryJoinTreeNode(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&) @ 0x0000000012912a79
+11. DB::QueryAnalyzer::resolveQuery(std::shared_ptr<DB::IQueryTreeNode> const&, DB::IdentifierResolveScope&) @ 0x00000000128d7daf
+12. DB::QueryAnalyzer::resolve(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::IQueryTreeNode> const&, std::shared_ptr<DB::Context const>) @ 0x00000000128d60cc
+13. DB::QueryAnalysisPass::run(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::Context const>) @ 0x00000000128d5933
+14. DB::QueryTreePassManager::run(std::shared_ptr<DB::IQueryTreeNode>) @ 0x000000001292b296
+15. DB::buildQueryTreeAndRunPasses(std::shared_ptr<DB::IAST> const&, DB::SelectQueryOptions const&, std::shared_ptr<DB::Context const> const&, std::shared_ptr<DB::IStorage> const&) (.llvm.2807073841616358299) @ 0x000000001323fb25
+16. DB::InterpreterSelectQueryAnalyzer::InterpreterSelectQueryAnalyzer(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const> const&, DB::SelectQueryOptions const&, std::vector<String, std::allocator<String>> const&) @ 0x000000001323dabc
+17. std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> std::__function::__policy_invoker<std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>::__call_impl[abi:ne190107]<std::__function::__default_alloc_func<DB::registerInterpreterSelectQueryAnalyzer(DB::InterpreterFactory&)::$_0, std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>>(std::__function::__policy_storage const*, DB::InterpreterFactory::Arguments const&) (.llvm.2807073841616358299) @ 0x0000000013241402
+18. DB::InterpreterFactory::get(std::shared_ptr<DB::IAST>&, std::shared_ptr<DB::Context>, DB::SelectQueryOptions const&) @ 0x00000000131ea9eb
+19. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*, std::shared_ptr<DB::IAST>&) @ 0x000000001359aa74
+20. DB::executeQuery(DB::ReadBuffer&, DB::WriteBuffer&, bool, std::shared_ptr<DB::Context>, std::function<void (DB::QueryResultDetails const&)>, DB::QueryFlags, std::optional<DB::FormatSettings> const&, std::function<void (DB::IOutputFormat&, String const&, std::shared_ptr<DB::Context const> const&, std::optional<DB::FormatSettings> const&)>) @ 0x000000001359f4a5
+21. DB::HTTPHandler::processQuery(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&, DB::HTTPHandler::Output&, std::optional<DB::CurrentThread::QueryScope>&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x0000000014866481
+22. DB::HTTPHandler::handleRequest(DB::HTTPServerRequest&, DB::HTTPServerResponse&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486a9e9
+23. DB::HTTPServerConnection::run() @ 0x0000000014920baa
+24. Poco::Net::TCPServerConnection::start() @ 0x000000001801bdc7
+25. Poco::Net::TCPServerDispatcher::run() @ 0x000000001801c219
+26. Poco::PooledThread::run() @ 0x0000000017fe753b
+27. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000017fe5a1d
+28. ? @ 0x00007ff6613b1ac3
+29. ? @ 0x00007ff661443850
+
+2025.05.21 05:09:53.634027 [ 81 ] {905cb505-24d9-4683-9919-b1e900c5a02a} <Error> DynamicQueryHandler: Code: 410. DB::Exception: clickhouse-jdbc-bridge is not running. Please, start it manually. (EXTERNAL_SERVER_IS_NOT_RESPONDING), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000f2c34db
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000009c76bec
+2. DB::Exception::Exception<String>(int, FormatStringHelperImpl<std::type_identity<String>::type>, String&&) @ 0x0000000009c7690b
+3. DB::IBridgeHelper::startBridgeCommand() @ 0x0000000014821679
+4. DB::IBridgeHelper::startBridgeSync() @ 0x000000001481d1e5
+5. DB::(anonymous namespace)::ITableFunctionXDBC::startBridgeIfNot(std::shared_ptr<DB::Context const>) const @ 0x00000000110d357e
+6. DB::(anonymous namespace)::ITableFunctionXDBC::executeImpl(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool) const (.bb2af0067840cbf5e78cb72ab24c4ebc) @ 0x00000000110d2c3f
+7. DB::ITableFunction::execute(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const>, String const&, DB::ColumnsDescription, bool, bool) const @ 0x0000000011b0f4ed
+8. DB::Context::executeTableFunction(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::ITableFunction> const&) @ 0x0000000012fdac7f
+9. DB::QueryAnalyzer::resolveTableFunction(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&, bool) @ 0x00000000128e7c51
+10. DB::QueryAnalyzer::resolveQueryJoinTreeNode(std::shared_ptr<DB::IQueryTreeNode>&, DB::IdentifierResolveScope&, DB::QueryExpressionsAliasVisitor&) @ 0x0000000012912a79
+11. DB::QueryAnalyzer::resolveQuery(std::shared_ptr<DB::IQueryTreeNode> const&, DB::IdentifierResolveScope&) @ 0x00000000128d7daf
+12. DB::QueryAnalyzer::resolve(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::IQueryTreeNode> const&, std::shared_ptr<DB::Context const>) @ 0x00000000128d60cc
+13. DB::QueryAnalysisPass::run(std::shared_ptr<DB::IQueryTreeNode>&, std::shared_ptr<DB::Context const>) @ 0x00000000128d5933
+14. DB::QueryTreePassManager::run(std::shared_ptr<DB::IQueryTreeNode>) @ 0x000000001292b296
+15. DB::buildQueryTreeAndRunPasses(std::shared_ptr<DB::IAST> const&, DB::SelectQueryOptions const&, std::shared_ptr<DB::Context const> const&, std::shared_ptr<DB::IStorage> const&) (.llvm.2807073841616358299) @ 0x000000001323fb25
+16. DB::InterpreterSelectQueryAnalyzer::InterpreterSelectQueryAnalyzer(std::shared_ptr<DB::IAST> const&, std::shared_ptr<DB::Context const> const&, DB::SelectQueryOptions const&, std::vector<String, std::allocator<String>> const&) @ 0x000000001323dabc
+17. std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> std::__function::__policy_invoker<std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>::__call_impl[abi:ne190107]<std::__function::__default_alloc_func<DB::registerInterpreterSelectQueryAnalyzer(DB::InterpreterFactory&)::$_0, std::unique_ptr<DB::IInterpreter, std::default_delete<DB::IInterpreter>> (DB::InterpreterFactory::Arguments const&)>>(std::__function::__policy_storage const*, DB::InterpreterFactory::Arguments const&) (.llvm.2807073841616358299) @ 0x0000000013241402
+18. DB::InterpreterFactory::get(std::shared_ptr<DB::IAST>&, std::shared_ptr<DB::Context>, DB::SelectQueryOptions const&) @ 0x00000000131ea9eb
+19. DB::executeQueryImpl(char const*, char const*, std::shared_ptr<DB::Context>, DB::QueryFlags, DB::QueryProcessingStage::Enum, DB::ReadBuffer*, std::shared_ptr<DB::IAST>&) @ 0x000000001359aa74
+20. DB::executeQuery(DB::ReadBuffer&, DB::WriteBuffer&, bool, std::shared_ptr<DB::Context>, std::function<void (DB::QueryResultDetails const&)>, DB::QueryFlags, std::optional<DB::FormatSettings> const&, std::function<void (DB::IOutputFormat&, String const&, std::shared_ptr<DB::Context const> const&, std::optional<DB::FormatSettings> const&)>) @ 0x000000001359f4a5
+21. DB::HTTPHandler::processQuery(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&, DB::HTTPHandler::Output&, std::optional<DB::CurrentThread::QueryScope>&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x0000000014866481
+22. DB::HTTPHandler::handleRequest(DB::HTTPServerRequest&, DB::HTTPServerResponse&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486a9e9
+23. DB::HTTPServerConnection::run() @ 0x0000000014920baa
+24. Poco::Net::TCPServerConnection::start() @ 0x000000001801bdc7
+25. Poco::Net::TCPServerDispatcher::run() @ 0x000000001801c219
+26. Poco::PooledThread::run() @ 0x0000000017fe753b
+27. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000017fe5a1d
+28. ? @ 0x00007ff6613b1ac3
+29. ? @ 0x00007ff661443850
+ (version 25.4.4.25 (official build))
+2025.05.21 05:11:57.814807 [ 81 ] {2f672ec5-2f88-4ce3-a0d0-d06857fdc328} <Error> executeQuery: Code: 27. DB::Exception: Cannot parse input: expected '(' before: ',(\'Test\', \'2025-01-13\', 100),(\'Test\', \'2025-02-13\', 100),(\'Test\', \'2025-03-13\', 100)\r\n,(\'Test\', \'2025-04-13\', 100),(\'Test\', \'2024-05-13\', 100),(\'Test\', \'2024-06':  at row 0: While executing ValuesBlockInputFormat. (CANNOT_PARSE_INPUT_ASSERTION_FAILED) (version 25.4.4.25 (official build)) (from 192.168.112.1:57308) (in query: insert into transfers(name,`date`,amount) values ), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000f2c34db
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000009c76bec
+2. DB::Exception::Exception<String&>(int, FormatStringHelperImpl<std::type_identity<String&>::type>, String&) @ 0x0000000009c8cc8b
+3. DB::throwAtAssertionFailed(char const*, DB::ReadBuffer&) @ 0x000000000f39d5dd
+4. DB::ValuesBlockInputFormat::read() @ 0x0000000014bedeee
+5. DB::IInputFormat::generate() @ 0x00000000149bd656
+6. DB::ISource::tryGenerate() @ 0x000000001499655e
+7. DB::ISource::work() @ 0x0000000014996167
+8. DB::ExecutionThreadContext::executeTask() @ 0x00000000149b2516
+9. DB::PipelineExecutor::executeStepImpl(unsigned long, std::atomic<bool>*) @ 0x00000000149a5f23
+10. DB::PipelineExecutor::execute(unsigned long, bool) @ 0x00000000149a4a25
+11. DB::CompletedPipelineExecutor::execute() @ 0x00000000149a326f
+12. DB::executeQuery(DB::ReadBuffer&, DB::WriteBuffer&, bool, std::shared_ptr<DB::Context>, std::function<void (DB::QueryResultDetails const&)>, DB::QueryFlags, std::optional<DB::FormatSettings> const&, std::function<void (DB::IOutputFormat&, String const&, std::shared_ptr<DB::Context const> const&, std::optional<DB::FormatSettings> const&)>) @ 0x000000001359fd14
+13. DB::HTTPHandler::processQuery(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&, DB::HTTPHandler::Output&, std::optional<DB::CurrentThread::QueryScope>&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x0000000014866481
+14. DB::HTTPHandler::handleRequest(DB::HTTPServerRequest&, DB::HTTPServerResponse&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486a9e9
+15. DB::HTTPServerConnection::run() @ 0x0000000014920baa
+16. Poco::Net::TCPServerConnection::start() @ 0x000000001801bdc7
+17. Poco::Net::TCPServerDispatcher::run() @ 0x000000001801c219
+18. Poco::PooledThread::run() @ 0x0000000017fe753b
+19. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000017fe5a1d
+20. ? @ 0x00007ff6613b1ac3
+21. ? @ 0x00007ff661443850
+
+2025.05.21 05:11:57.815688 [ 81 ] {2f672ec5-2f88-4ce3-a0d0-d06857fdc328} <Error> DynamicQueryHandler: Code: 27. DB::Exception: Cannot parse input: expected '(' before: ',(\'Test\', \'2025-01-13\', 100),(\'Test\', \'2025-02-13\', 100),(\'Test\', \'2025-03-13\', 100)\r\n,(\'Test\', \'2025-04-13\', 100),(\'Test\', \'2024-05-13\', 100),(\'Test\', \'2024-06':  at row 0: While executing ValuesBlockInputFormat. (CANNOT_PARSE_INPUT_ASSERTION_FAILED), Stack trace (when copying this message, always include the lines below):
+
+0. DB::Exception::Exception(DB::Exception::MessageMasked&&, int, bool) @ 0x000000000f2c34db
+1. DB::Exception::Exception(PreformattedMessage&&, int) @ 0x0000000009c76bec
+2. DB::Exception::Exception<String&>(int, FormatStringHelperImpl<std::type_identity<String&>::type>, String&) @ 0x0000000009c8cc8b
+3. DB::throwAtAssertionFailed(char const*, DB::ReadBuffer&) @ 0x000000000f39d5dd
+4. DB::ValuesBlockInputFormat::read() @ 0x0000000014bedeee
+5. DB::IInputFormat::generate() @ 0x00000000149bd656
+6. DB::ISource::tryGenerate() @ 0x000000001499655e
+7. DB::ISource::work() @ 0x0000000014996167
+8. DB::ExecutionThreadContext::executeTask() @ 0x00000000149b2516
+9. DB::PipelineExecutor::executeStepImpl(unsigned long, std::atomic<bool>*) @ 0x00000000149a5f23
+10. DB::PipelineExecutor::execute(unsigned long, bool) @ 0x00000000149a4a25
+11. DB::CompletedPipelineExecutor::execute() @ 0x00000000149a326f
+12. DB::executeQuery(DB::ReadBuffer&, DB::WriteBuffer&, bool, std::shared_ptr<DB::Context>, std::function<void (DB::QueryResultDetails const&)>, DB::QueryFlags, std::optional<DB::FormatSettings> const&, std::function<void (DB::IOutputFormat&, String const&, std::shared_ptr<DB::Context const> const&, std::optional<DB::FormatSettings> const&)>) @ 0x000000001359fd14
+13. DB::HTTPHandler::processQuery(DB::HTTPServerRequest&, DB::HTMLForm&, DB::HTTPServerResponse&, DB::HTTPHandler::Output&, std::optional<DB::CurrentThread::QueryScope>&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x0000000014866481
+14. DB::HTTPHandler::handleRequest(DB::HTTPServerRequest&, DB::HTTPServerResponse&, StrongTypedef<unsigned long, ProfileEvents::EventTag> const&) @ 0x000000001486a9e9
+15. DB::HTTPServerConnection::run() @ 0x0000000014920baa
+16. Poco::Net::TCPServerConnection::start() @ 0x000000001801bdc7
+17. Poco::Net::TCPServerDispatcher::run() @ 0x000000001801c219
+18. Poco::PooledThread::run() @ 0x0000000017fe753b
+19. Poco::ThreadImpl::runnableEntry(void*) @ 0x0000000017fe5a1d
+20. ? @ 0x00007ff6613b1ac3
+21. ? @ 0x00007ff661443850
+ (version 25.4.4.25 (official build))
